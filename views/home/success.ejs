@@ -1,0 +1,27 @@
+<% extend('../base2base.ejs') %>
+
+<section class="position-relative h-100 pt-5 pb-4">
+
+  <!-- Sign in form -->
+  <div class="container d-flex flex-wrap justify-content-center justify-content-xl-start h-100 pt-5">
+    <div class="w-100 align-self-end pt-1 pt-md-4 pb-4" style="max-width: 526px;">
+      <h1 class="text-center text-xl-start">
+        Content de vous revoir chez <%= appName %>
+      </h1>
+      <p class="text-center text-xl-start text-muted mb-4">
+        Votre commande a été enregistrée avec succès.
+        Vous recevrez un email de confirmation dans quelques instants.
+        Cet email contiendra un lien temporaire de 7 jours pour télécharger votre fichier.
+      </p>
+      <p class="text-center text-xl-start text-muted mb-4">
+        Merci de votre confiance. L'équipe <%= appName %>.
+      </p>
+      <hr class="my-4 mt-4 mb-5">
+    </div>
+  </div>
+
+  <!-- Background -->
+  <div
+    class="position-absolute top-0 end-0 w-50 h-100 bg-position-center bg-repeat-0 bg-size-cover d-none d-xl-block"
+    style="background-image: url(/templates/assets/img/account/signin-bg.jpg);"></div>
+</section>

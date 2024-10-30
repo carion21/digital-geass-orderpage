@@ -1,0 +1,103 @@
+<script>
+    function checkout() {
+        let id_externe = Date.now().toString() + Math.floor(Math.random() * 1000).toString()
+        val_e = id_externe
+        axios({
+            method: 'post',
+            url: '/api/v1/add_id_extern',
+            data: {
+                id_externe: id_externe,
+                id_ask_trans: d_trans_id//s_data.trans._id
+            }
+        })
+            .then(function (res) { 
+
+                if (res.data.status == 1) {
+
+
+                    CinetPay.setConfig({
+                        apikey: '15737482560f98bd28da4e3.14570621',//   YOUR APIKEY
+                        site_id: '305707',//YOUR_SITE_ID
+                        notify_url: 'https://digi-pme.com/api/v1/trans_notif_url',
+                        mode: 'PRODUCTION'
+                    });
+                    CinetPay.getCheckout({
+                        transaction_id: id_externe,//Math.floor(Math.random() * 100000000).toString(), // YOUR TRANSACTION ID
+                        amount: d_montant,//s_data.trans.montant,
+                        currency: 'XOF',
+                        channels: 'ALL',
+                        invoice_data: {
+                            "id_trans": d_trans_id//s_data.trans._id
+                        },
+                        description: d_initule,//s_data.intitule,   
+                        //Fournir ces variables pour le paiements par carte bancaire
+                        customer_id: '002',
+                        customer_name: "Digi",//Le nom du client
+                        customer_surname: "Pme",//Le prenom du client
+                        customer_email: "services@digi-pme.com",//l'email du client
+                        customer_phone_number: "+2250758048155",//l'email du client
+                        customer_address: "Abidjan Yopougon",//addresse du client
+                        customer_city: "Abidjan",// La ville du client
+                        customer_country: "CI",// le code ISO du pays
+                        customer_state: "CI",// le code ISO l'état
+                        customer_zip_code: "99326", // code postal
+
+                    })
+
+
+                    CinetPay.waitResponse(function (data) {
+                        if (data.status == "REFUSED") {
+
+                            Swal.fire({
+                                text: "Désolé, il semble qu'il y ait des erreurs détectées, veuillez réessayer.",
+                                icon: "error",
+                                buttonsStyling: false,
+                                confirmButtonText: "Ok, compris!",
+                                customClass: {
+                                    confirmButton: "btn btn-primary"
+                                }
+                            });
+
+                        } else if (data.status == "ACCEPTED") {
+
+                            Swal.fire({
+                                text: "Votre paiement a été effectué avec succès!",
+                                icon: "success",
+                                buttonsStyling: false,
+                                confirmButtonText: "Ok, compris!",
+                                customClass: {
+                                    confirmButton: "btn btn-primary"
+                                }
+                            }).then(function (result) {
+
+
+
+                                //form.submit(); // submit form
+
+                                location.href = "/account";
+
+
+                            });
+                        }
+                    });
+                    CinetPay.onError(function (data) {
+                        console.log(data);
+                    });
+                } else {
+                    Swal.fire({
+                        text: "Désolé, il semble qu'il y ait des erreurs détectées, veuillez réessayer.",
+                        icon: "error",
+                        buttonsStyling: false,
+                        confirmButtonText: "Ok, compris!",
+                        customClass: {
+                            confirmButton: "btn btn-primary"
+                        }
+                    });
+                }
+            })
+
+
+    }
+
+
+</script>
