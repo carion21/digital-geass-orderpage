@@ -3,8 +3,6 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
-const redis = require('redis');
-const redisStore = require('connect-redis')(session)
 const morgan = require('morgan');
 
 require('dotenv').config()
@@ -27,42 +25,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
-const secret_dev = process.env.SESSION_SECRET
-const secret_prod = process.env.SESSION_SECRET
-const age = 48 * 60 * 60 * 1000 // 48 hours
-
-const modactuel = process.env.NODE_ENV || 'development'
-if (modactuel == "development") {
-  const client = redis.createClient()
-  app.use(session({
-    secret: secret_dev,
-    store: new redisStore({
-      host: 'localhost',
-      port: 6379,
-      client: client,
-      ttl: 260
-    }),
-    saveUninitialized: true,
-    resave: true,
-    cookie: {
-      httpOnly: true,
-      secure: false,
-      maxAge: age
-    }
-  }));
-} else {
-  app.use(session({
-    secret: secret_prod,
-    saveUninitialized: true,
-    resave: true,
-    cookie: {
-      httpOnly: true,
-      secure: false,
-      maxAge: age
-    }
-  }));
-}
 
 app.use(
   '/order',
