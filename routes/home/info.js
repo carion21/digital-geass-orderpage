@@ -19,5 +19,9 @@ router.get('/:tunnel_code', async function (req, res, next) {
   })
 });
 
+router.post('/:tunnel_code', async function (req, res, next) {
+  res.redirect('/info/' + req.params.tunnel_code)
+});
+
 
 module.exports = router;
