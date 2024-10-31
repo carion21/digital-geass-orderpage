@@ -79,6 +79,7 @@ router.post('/:tunnel_code', async function (req, res, next) {
         let order_data = {
           tunnel: tunnel.id,
           code: order_code,
+          short_code: tunnel.short_code,
           lastname: body.lastname,
           firstname: body.firstname,
           email: body.email,
@@ -92,8 +93,8 @@ router.post('/:tunnel_code', async function (req, res, next) {
           let r_dts_order = await directus_retrieve_order(order_code)
           let order = r_dts_order.data[0]
 
-          let cnp_transaction = await cinetpay_execute_payment(order_data.code, tunnel.price)
-          // let cnp_transaction = await cinetpay_execute_payment(order_data.code, 100)
+          // let cnp_transaction = await cinetpay_execute_payment(order_data.code, tunnel.price)
+          let cnp_transaction = await cinetpay_execute_payment(order_data, 100)
 
           if (cnp_transaction.success) {
             let payment_url = cnp_transaction.data.payment_url

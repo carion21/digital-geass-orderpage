@@ -1,39 +1,47 @@
 <% extend('../base2base.ejs') %>
 
   <section class="position-relative h-100 pt-5 pb-4">
-
-    <!-- Sign in form -->
     <div class="container d-flex flex-wrap justify-content-center justify-content-xl-start pt-5">
       <div class="w-100 align-self-end pt-1 pt-md-4 pb-4 mt-5 mb-4" style="max-width: 526px;">
-        <h1 class="text-center text-xl-start">
-          Ravi de vous revoir chez <%= appName %>
+
+        <!-- Message principal -->
+        <h1 class="text-center text-xl-start">Merci de votre confiance chez <%= appName %>
         </h1>
         <p class="text-center text-xl-start text-muted mb-4">
-          Votre commande a été enregistrée avec succès. <br>
-          Vous recevrez un email de confirmation dans quelques instants.
-          Cet email contiendra un lien temporaire de <b>30 jours</b> pour télécharger votre fichier.
+          Votre commande a bien été enregistrée.<br>Vous recevrez un email avec un lien de téléchargement
+          valide <b>30 jours</b> en cas de validation.
+        </p>
+
+        <!-- Alerte spams -->
         <div class="alert alert-warning">
-          <strong>Attention !!!</strong> Pensez à vérifier votre dossier de spams si vous ne voyez pas l'email dans
-          votre boîte de réception.
+          <strong>Attention :</strong> vérifiez vos spams si vous ne voyez pas l'email.
         </div>
+
+        <!-- Bouton pour nouvelle commande si besoin -->
+        <div class="text-center mt-4">
+          <a href="/order/<% tunnel_code %>" class="btn btn-lg btn-primary  d-block w-100 mt-4">
+            Passer une autre commande
+          </a>
+        </div>
+
         <div class="alert alert-info">
-          <p>Pour toute réclamation ou question concernant votre commande, n'hésitez pas à nous contacter :</p>
+          <p>Pour toute assistance immédiate, veuillez nous contacter :</p>
           <ul>
             <li><strong>WhatsApp :</strong> +225 07 571 483 21</li>
             <li><strong>Email :</strong> support@digital.geasscorp.com</li>
           </ul>
         </div>
-        </p>
         <p class="text-center text-xl-start text-muted mb-4">
-          Merci de votre confiance. L'équipe <span class="fw-bolder">
+          Merci pour votre patience. L'équipe <span class="fw-bolder">
             <%= appName %>
           </span>.
         </p>
         <hr class="my-4 mt-4 mb-5">
+
       </div>
     </div>
 
     <!-- Background -->
     <div class="position-absolute top-0 end-0 w-50 h-100 bg-position-center bg-repeat-0 bg-size-cover d-none d-xl-block"
-      style="background-image: url(/templates/assets/img/account/signin-bg.jpg);"></div>
+      style="background-image: url('/templates/assets/img/account/background.jpg');"></div>
   </section>

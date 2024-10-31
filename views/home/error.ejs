@@ -2,30 +2,33 @@
 
   <section class="position-relative h-100 pt-5 pb-4">
 
-    <!-- Sign in form -->
+    <!-- Error message -->
     <div class="container d-flex flex-wrap justify-content-center justify-content-xl-start pt-5">
       <div class="w-100 align-self-end pt-1 pt-md-4 pb-4 mt-5 mb-4" style="max-width: 526px;">
-        <h1 class="text-center text-xl-start">
-          Ravi de vous revoir chez <%= appName %>
+        <h1 class="text-center text-xl-start text-danger">
+          Oups ! Une erreur est survenue
         </h1>
         <p class="text-center text-xl-start text-muted mb-4">
-          Votre commande a été enregistrée avec succès. <br>
-          Vous recevrez un email de confirmation dans quelques instants.
-          Cet email contiendra un lien temporaire de <b>30 jours</b> pour télécharger votre fichier.
+          Nous n'avons pas pu traiter votre commande pour le moment. <br>
+          Veuillez réessayer plus tard ou contacter notre service client pour plus d'assistance.
+        </p>
         <div class="alert alert-warning">
-          <strong>Attention !!!</strong> Pensez à vérifier votre dossier de spams si vous ne voyez pas l'email dans
-          votre boîte de réception.
+          <strong>Note :</strong> Assurez-vous de vérifier votre connexion et réessayez. Si le problème
+          persiste, notre équipe est là pour vous aider.
         </div>
+        <a class="btn btn-primary d-block w-100 mt-4"
+          href="/order/<%= tunnel_code %>">
+          Réessayer de passer la commande ICI
+        </a>
         <div class="alert alert-info">
-          <p>Pour toute réclamation ou question concernant votre commande, n'hésitez pas à nous contacter :</p>
+          <p>Pour toute assistance immédiate, veuillez nous contacter :</p>
           <ul>
             <li><strong>WhatsApp :</strong> +225 07 571 483 21</li>
             <li><strong>Email :</strong> support@digital.geasscorp.com</li>
           </ul>
         </div>
-        </p>
         <p class="text-center text-xl-start text-muted mb-4">
-          Merci de votre confiance. L'équipe <span class="fw-bolder">
+          Merci pour votre patience. L'équipe <span class="fw-bolder">
             <%= appName %>
           </span>.
         </p>
@@ -35,5 +38,5 @@
 
     <!-- Background -->
     <div class="position-absolute top-0 end-0 w-50 h-100 bg-position-center bg-repeat-0 bg-size-cover d-none d-xl-block"
-      style="background-image: url(/templates/assets/img/account/signin-bg.jpg);"></div>
+      style="background-image: url(/templates/assets/img/account/error-bg.jpg);"></div>
   </section>

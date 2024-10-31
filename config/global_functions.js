@@ -271,7 +271,7 @@ const control_field_type = ((field, value, field_type) => {
 })
 
 const cinetpay_execute_payment = async (
-  transaction_code,
+  order_data,
   transaction_amount,
 ) => {
   let result = {
@@ -279,6 +279,9 @@ const cinetpay_execute_payment = async (
   };
 
   try {
+    transaction_code = order_data.code;
+    tunnel_code = order_data.short_code;
+
     const xdata = JSON.stringify({
       amount: transaction_amount,
       currency: 'XOF',
@@ -286,7 +289,7 @@ const cinetpay_execute_payment = async (
       site_id: process.env.CINETPAY_SITE_ID,
       transaction_id: transaction_code,
       description: 'Paiement Chez DigitalGeass',
-      return_url: 'https://cinetpay.requestcatcher.com',
+      return_url: process.env.APP_DOMAIN + '/info/' + tunnel_code,
       notify_url: 'https://cinetpay.requestcatcher.com',
     });
 
