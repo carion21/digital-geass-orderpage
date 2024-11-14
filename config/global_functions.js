@@ -1,4 +1,4 @@
-const { SERVICE_TYPES_FIELDS, ROUTE_OF_DIRECTUS_FOR_USER, ROUTE_OF_DIRECTUS_FOR_CONNECTION_HISTORY, ROUTE_OF_DIRECTUS_TO_VERIFY_HASH, ROUTE_OF_DIRECTUS_FOR_DGEASS_ORDER, ROUTE_OF_DIRECTUS_FOR_DGEASS_TUNNEL, ROUTE_OF_DIRECTUS_FOR_DGEASS_TRANSACTION_LOG } = require("./consts")
+const { SERVICE_TYPES_FIELDS, ROUTE_OF_DIRECTUS_FOR_USER, ROUTE_OF_DIRECTUS_FOR_CONNECTION_HISTORY, ROUTE_OF_DIRECTUS_TO_VERIFY_HASH, ROUTE_OF_DIRECTUS_FOR_DGEASS_ORDER, ROUTE_OF_DIRECTUS_FOR_DGEASS_TUNNEL, ROUTE_OF_DIRECTUS_FOR_DGEASS_TRANSACTION_LOG, ROUTE_OF_DIRECTUS_FOR_DGEASS_VARIABLE } = require("./consts")
 const { isString, isInteger, isBoolean, isObject, isArray, isNumber, isArrayOfString, isArrayOfInteger, getMoment, getDirectusUrl } = require("./utils")
 
 require('dotenv').config()
@@ -579,6 +579,63 @@ const directus_create_transaction_log = (async (transaction_log_data) => {
   return result
 })
 
+const directus_list_variables = (async () => {
+  let result = {
+    success: false
+  }
+
+  let error = ""
+  let urlcomplete = urlapi + ROUTE_OF_DIRECTUS_FOR_DGEASS_VARIABLE + "?sort=id"
+
+  try {
+    let response = await axios.get(urlcomplete)
+    if (response.status == 200) {
+      let rdata = response.data
+      result.success = true
+      result.data = rdata.data
+    } else {
+      error = response.data.message
+    }
+  } catch (err) {
+    error = err.message
+  }
+
+  if (error != "") {
+    result.message = error
+  }
+
+  return result
+})
+
+const directus_retrieve_variable = (async (variable_name) => {
+  let result = {
+    success: false
+  }
+
+  let error = ""
+  let urlcomplete = urlapi + ROUTE_OF_DIRECTUS_FOR_DGEASS_VARIABLE
+  urlcomplete += "?filter[name][_eq]=" + variable_name
+
+  try {
+    let response = await axios.get(urlcomplete)
+    if (response.status == 200) {
+      let rdata = response.data
+      result.success = true
+      result.data = rdata.data
+    } else {
+      error = response.data.message
+    }
+  } catch (err) {
+    error = err.message
+  }
+
+  if (error != "") {
+    result.message = error
+  }
+
+  return result
+})
+
 
 module.exports = {
   control_service_data,
@@ -589,5 +646,7 @@ module.exports = {
   directus_retrieve_order,
   directus_create_order,
   directus_update_order,
-  directus_create_transaction_log
+  directus_create_transaction_log,
+  directus_list_variables,
+  directus_retrieve_variable
 }

@@ -2,7 +2,7 @@ const express = require('express');
 
 const { getMoment, getDirectusUrl, genOrderCode } = require('../../config/utils');
 const { APP_NAME, APP_VERSION, APP_DESCRIPTION, ORDER_STATUS_STARTED, TRANSACTION_STATUS_PENDING } = require('../../config/consts');
-const { control_service_data, directus_retrieve_tunnel, directus_create_order, cinetpay_execute_payment, directus_retrieve_order, directus_update_order, directus_create_transaction_log } = require('../../config/global_functions');
+const { control_service_data, directus_retrieve_tunnel, directus_create_order, cinetpay_execute_payment, directus_retrieve_order, directus_update_order, directus_create_transaction_log, directus_retrieve_variable } = require('../../config/global_functions');
 const router = express.Router();
 
 const SERVICE_TYPE = "order_first_step"
@@ -93,8 +93,18 @@ router.post('/:tunnel_code', async function (req, res, next) {
           let r_dts_order = await directus_retrieve_order(order_code)
           let order = r_dts_order.data[0]
 
+          let mode_demo = true
+          let dts_var = {}
+          let r_dts_variable = await directus_retrieve_variable("MODE_DEMO")
+          if (r_dts_variable.success) {
+            dts_var = r_dts_variable.data[0]
+          }
+          mode_demo = dts_var.value == "true"
+
+          let amount = mode_demo ? 100 : tunnel.price
+
           // let cnp_transaction = await cinetpay_execute_payment(order_data.code, tunnel.price)
-          let cnp_transaction = await cinetpay_execute_payment(order_data, 100)
+          let cnp_transaction = await cinetpay_execute_payment(order_data, amount)
 
           if (cnp_transaction.success) {
             let payment_url = cnp_transaction.data.payment_url

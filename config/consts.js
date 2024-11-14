@@ -34,6 +34,7 @@ class Consts {
     static ROUTE_OF_DIRECTUS_FOR_DGEASS_PRODUCT = "/items/dgeass_product"
     static ROUTE_OF_DIRECTUS_FOR_DGEASS_TUNNEL = "/items/dgeass_tunnel"
     static ROUTE_OF_DIRECTUS_FOR_DGEASS_ORDER = "/items/dgeass_order"
+    static ROUTE_OF_DIRECTUS_FOR_DGEASS_VARIABLE = "/items/dgeass_variable"
     static ROUTE_OF_DIRECTUS_FOR_DGEASS_TRANSACTION_LOG = "/items/dgeass_transaction_log"
 
     static ORDER_STATUS_STARTED = "started"
