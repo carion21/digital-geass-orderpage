@@ -3,6 +3,7 @@ const express = require('express');
 const { getMoment, getDirectusUrl, genOrderCode } = require('../../config/utils');
 const { APP_NAME, APP_VERSION, APP_DESCRIPTION, ORDER_STATUS_STARTED, TRANSACTION_STATUS_PENDING } = require('../../config/consts');
 const { control_service_data, directus_retrieve_tunnel, directus_create_order, cinetpay_execute_payment, directus_retrieve_order, directus_update_order, directus_create_transaction_log, directus_retrieve_variable } = require('../../config/global_functions');
+const MinioService = require('../../config/minioservice');
 const router = express.Router();
 
 const SERVICE_TYPE = "order_first_step"
@@ -28,6 +29,15 @@ router.get('/:tunnel_code', async function (req, res, next) {
       tunnel_is_available = false
     }
 
+    tunnel.poster_link = ""
+    if (tunnel_is_available && tunnel.poster != null && tunnel.poster != "") {
+      const minioService = new MinioService()
+      tunnel.poster_link = await minioService.getFileUrl(tunnel.poster)
+    }
+
+    console.log('tunnel', tunnel);
+    
+
     res.render(
       "order/first", {
       appName: APP_NAME,
@@ -48,6 +58,8 @@ router.get('/:tunnel_code', async function (req, res, next) {
 });
 
 router.post('/:tunnel_code', async function (req, res, next) {
+  console.log('req.body', req.body);
+  
   let tunnel_code = req.params.tunnel_code
 
   let r_dts_tunnel = await directus_retrieve_tunnel(tunnel_code)
@@ -55,7 +67,7 @@ router.post('/:tunnel_code', async function (req, res, next) {
   if (r_dts_tunnel.success && r_dts_tunnel.data.length > 0) {
     const tunnel = r_dts_tunnel.data[0]
 
-    console.log('tunnel', tunnel);
+    console.log('hastunnel', tunnel);
 
     let tunnel_is_available = true
 
@@ -67,12 +79,12 @@ router.post('/:tunnel_code', async function (req, res, next) {
       tunnel_is_available = false
     }
 
+    let error = ""
+
     if (tunnel_is_available) {
       let body = req.body
 
       let bcontrol = control_service_data(SERVICE_TYPE, body)
-
-      let error = ""
 
       if (bcontrol.success) {
         let order_code = genOrderCode()
@@ -140,6 +152,8 @@ router.post('/:tunnel_code', async function (req, res, next) {
 
 
       if (error) {
+        console.log('error', error);
+        
         res.render(
           "order/first", {
           appName: APP_NAME,
@@ -155,7 +169,7 @@ router.post('/:tunnel_code', async function (req, res, next) {
       }
 
     } else {
-      res.redirect("/order/" + tunnel_code)
+      error = "Le tunnel n'est pas disponible"
     }
 
   } else {

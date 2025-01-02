@@ -1,0 +1,64 @@
+<!-- Formulaire -->
+<div class="bg-light p-4 rounded">
+    <h3 class="text-center text-success">
+        Obtenez votre pack maintenant pour seulement <%= tunnel.price %> FCFA !
+    </h3>
+    <% if (locals.error) { %>
+        <div class="alert alert-danger">
+            <strong>Erreur!</strong> <%= locals.error %>
+        </div>
+    <% } %>
+    <form method="POST" class="mt-4 needs-validation mb-2"
+        action="/order/<%= tunnel.short_code %>" novalidate>
+        <div class="mb-3">
+            <label for="lastname" class="form-label">Votre nom</label>
+            <input type="text" id="lastname" name="lastname" class="form-control" 
+                placeholder="Entrez votre nom"
+                value="<% if (locals.rbody) { %><%= rbody.lastname %><% } %>"
+                required>
+            <div class="invalid-feedback position-absolute start-0 top-100">
+                S'il vous plaît, entrez un nom valide!
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="firstname" class="form-label">Votre prénom</label>
+            <input type="text" id="firstname" name="firstname" class="form-control"
+                placeholder="Entrez votre prénom"
+                value="<% if (locals.rbody) { %><%= rbody.firstname %><% } %>"
+                required>
+            <div class="invalid-feedback position-absolute start-0 top-100">
+                S'il vous plaît, entrez un prénom valide!
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Votre email</label>
+            <input type="email" id="email" name="email" class="form-control"
+                placeholder="Entrez votre email"
+                value="<% if (locals.rbody) { %><%= rbody.email %><% } %>"
+                required>
+            <div class="invalid-feedback position-absolute start-0 top-100">
+                S'il vous plaît, entrez un email valide!
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="phone" class="form-label">
+                Votre numéro de téléphone
+            </label>
+            <span>
+                <small class="text-muted">
+                (Votre numéro de téléphone sera utilisé pour vous contacter en cas de besoin)
+                </small>
+            </span>
+            <input type="text" id="phone" name="phone" class="form-control"
+                placeholder="Entrez votre numéro de téléphone"
+                value="<% if (locals.rbody) { %><%= rbody.phone %><% } %>"
+                required>
+            <div class="invalid-feedback position-absolute start-0 top-100">
+                S'il vous plaît, entrez un numéro de téléphone valide!
+            </div>
+        </div>
+        <button type="submit" class="btn btn-success w-100">
+            Commander pour <%= tunnel.price %> FCFA
+        </button>
+    </form>
+</div>

@@ -1,0 +1,78 @@
+<!-- Container principal -->
+<div class="container my-5">
+    <!-- Titre principal -->
+    
+    <% if (tunnel.main_title) { %>
+        <%- tunnel.main_title %>
+    <% } else { %>
+        <h1 class="text-center border rounded p-2">
+            Titre principal du pack
+        </h1>
+    <% } %>
+
+    <!-- Section image -->
+    <% if (tunnel.poster_link) { %>
+        <div class="text-center my-4 border rounded p-2">
+            <img src="<%= tunnel.poster_link %>"
+                alt="<%= tunnel.code %>"
+                class="img-fluid border rounded">
+        </div>
+    <% } else { %>
+        <div class="text-center my-4 border rounded p-2">
+            <img src="https://via.placeholder.com/300"
+                alt="<%= tunnel.code %>"
+                class="img-fluid rounded">
+        </div>
+    <% } %>
+
+    <!-- Contenu du pack -->
+    <% if (tunnel.what_you_get) { %>
+        <%- tunnel.what_you_get %>
+    <% } else { %>
+        <div class="my-5">
+            <h2 class="text-center">Ce que vous obtenez :</h2>
+            <ul class="list-group my-4">
+                <li class="list-group-item">
+                    <strong>WYG 1 :</strong> Lorem Ipsum is simply dummy text of the printing and typesetting industry..
+                    <span class="text-muted">Valeur réelle : 2500 FCFA</span>
+                </li>
+                <li class="list-group-item">
+                    <strong>WYG 1 :</strong> Lorem Ipsum is simply dummy text of the printing and typesetting industry..
+                    <span class="text-muted">Valeur réelle : 2500 FCFA</span>
+                </li>
+                <li class="list-group-item">
+                    <strong>WYG 1 :</strong> Lorem Ipsum is simply dummy text of the printing and typesetting industry..
+                    <span class="text-muted">Valeur réelle : 2500 FCFA</span>
+                </li>
+            </ul>
+        </div>
+    <% } %>
+
+    <!-- Pourquoi choisir le pack -->
+    <% if (tunnel.main_advantages) { %>
+        <%- tunnel.main_advantages %>
+    <% } else { %>
+        <div class="my-5">
+            <h3 class="text-center">Pourquoi choisir ce pack ?</h3>
+            <ul class="list-unstyled my-4">
+                <li class="list-group item">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</li>
+                <li class="list-group item">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</li>
+                <li class="list-group item">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</li>
+            </ul>
+        </div>
+    <% } %>
+
+    <!-- Étapes simples -->
+    <div class="my-5">
+        <h3 class="text-center">Comment ça marche ?</h3>
+        <ol class="list-group my-4">
+            <li class="list-group-item">Remplissez le formulaire ci-dessous.</li>
+            <li class="list-group-item">Effectuez votre paiement sécurisé via <strong>CinetPay</strong>.</li>
+            <li class="list-group-item">Recevez directement vos fichiers par email avec un lien de téléchargement.
+            </li>
+            <li class="list-group-item">Pour tous soucis, contactez ce numéro (aussi disponible sur WhatsApp) : <strong>+225 07 571 483 21</strong>.</li>
+        </ol>
+    </div>
+
+    
+</div>

@@ -1,0 +1,99 @@
+<% extend('../base2base') %>
+
+<section class="position-relative h-100 pt-5 pb-4">
+
+  <!-- Sign in form -->
+  <div class="container d-flex flex-wrap justify-content-center justify-content-xl-start h-100 pt-5">
+    <div class="w-100 align-self-end pt-1 pt-md-4 pb-4" style="max-width: 526px;">
+
+      <%- include('description') %>
+
+      <% if (tunnel.poster_link) { %>
+        <div class="card p-2 mb-4 border">
+          <img src="<%= tunnel.poster_link %>" class="img-fluid" alt="Responsive image">
+        </div>
+      <% } %>
+
+      <h1 class="text-center text-xl-start">
+        Bienvenue chez <%= appName %>
+      </h1>
+      <div class="alert alert-info">
+        <strong>Information!</strong> Veuillez remplir le formulaire ci-dessous pour passer votre commande.
+      </div>
+      <form method="POST" action="/order/<%= tunnel.short_code %>"
+        class="needs-validation mb-2" novalidate>
+
+        <% if (locals.error) { %>
+          <div class="alert alert-danger">
+            <strong>Erreur!</strong> <%= locals.error %>
+          </div>
+        <% } %>
+
+        <div class="position-relative mb-4">
+          <label for="email" class="form-label fs-base">
+            Email
+            <span>
+              <small class="text-muted">
+                (Votre email sera utilisé pour vous envoyer le fichier de votre commande)
+              </small>
+            </span>
+          </label>
+          <input name="email" type="email" id="email" class="form-control form-control-lg" 
+            value="<% if (locals.rbody) { %><%= rbody.email %><% } %>"
+            required>
+          <div class="invalid-feedback position-absolute start-0 top-100">
+            S'il vous plaît, entrez un email valide!
+          </div>
+        </div>
+        <div class="position-relative mb-4">
+          <label for="phone" class="form-label fs-base">
+            Téléphone
+            <span>
+              <small class="text-muted">
+                (Votre numéro de téléphone sera utilisé pour vous contacter en cas de besoin)
+              </small>
+            </span>
+          </label>
+          <input name="phone" type="tel" id="phone" class="form-control form-control-lg" 
+            value="<% if (locals.rbody) { %><%= rbody.phone %><% } %>"
+            required>
+          <div class="invalid-feedback position-absolute start-0 top-100">
+            S'il vous plaît, entrez un numéro de téléphone valide!
+          </div>
+        </div>
+        <div class="position-relative mb-4">
+          <label for="lastname" class="form-label fs-base">
+            Nom
+          </label>
+          <input name="lastname" type="text" id="lastname" class="form-control form-control-lg" 
+            value="<% if (locals.rbody) { %><%= rbody.lastname %><% } %>"
+            required>
+          <div class="invalid-feedback position-absolute start-0 top-100">
+            S'il vous plaît, entrez un nom valide!
+          </div>
+        </div>
+        <div class="position-relative mb-4">
+          <label for="firstname" class="form-label fs-base">
+            Prénom
+          </label>
+          <input name="firstname" type="text" id="firstname" class="form-control form-control-lg" 
+            value="<% if (locals.rbody) { %><%= rbody.firstname %><% } %>"
+            required>
+          <div class="invalid-feedback position-absolute start-0 top-100">
+            S'il vous plaît, entrez un prénom valide!
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary shadow-primary btn-lg w-100">
+          Passer au paiement
+        </button>
+      </form>
+      <hr class="my-4 mt-4 mb-5">
+    </div>
+  </div>
+
+  <!-- Background -->
+  <div
+    class="position-absolute top-0 end-0 w-50 h-100 bg-position-center bg-repeat-0 bg-size-cover d-none d-xl-block"
+    style="background-image: url(/templates/assets/img/account/signin-bg.jpg);"></div>
+    
+</section>
