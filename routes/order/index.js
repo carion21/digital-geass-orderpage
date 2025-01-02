@@ -36,14 +36,14 @@ router.get('/:tunnel_code', async function (req, res, next) {
     }
 
     console.log('tunnel', tunnel);
-    
 
     res.render(
       "order/first", {
       appName: APP_NAME,
       appVersion: APP_VERSION,
       appDescription: APP_DESCRIPTION,
-      pageDescription: "Passer une commande",
+      pageDescription: tunnel.product.name,
+      // pageDescription: "Passer une commande",
       service: service,
       tunnel_is_available: tunnel_is_available,
       tunnel: tunnel
@@ -59,7 +59,7 @@ router.get('/:tunnel_code', async function (req, res, next) {
 
 router.post('/:tunnel_code', async function (req, res, next) {
   console.log('req.body', req.body);
-  
+
   let tunnel_code = req.params.tunnel_code
 
   let r_dts_tunnel = await directus_retrieve_tunnel(tunnel_code)
@@ -153,13 +153,14 @@ router.post('/:tunnel_code', async function (req, res, next) {
 
       if (error) {
         console.log('error', error);
-        
+
         res.render(
           "order/first", {
           appName: APP_NAME,
           appVersion: APP_VERSION,
           appDescription: APP_DESCRIPTION,
-          pageDescription: "Passer une commande",
+          pageDescription: tunnel.product.name,
+          // pageDescription: "Passer une commande",
           service: service,
           tunnel_is_available: tunnel_is_available,
           tunnel: tunnel,
