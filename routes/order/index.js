@@ -81,7 +81,7 @@ router.post('/:tunnel_code', async function (req, res, next) {
 
     let error = ""
 
-    if (!tunnel_is_available) {
+    if (tunnel_is_available) {
       let body = req.body
 
       let bcontrol = control_service_data(SERVICE_TYPE, body)
@@ -150,27 +150,26 @@ router.post('/:tunnel_code', async function (req, res, next) {
         error = bcontrol.message
       }
 
-
-      if (error) {
-        console.log('error', error);
-
-        res.render(
-          "order/first", {
-          appName: APP_NAME,
-          appVersion: APP_VERSION,
-          appDescription: APP_DESCRIPTION,
-          pageDescription: tunnel.product.name,
-          // pageDescription: "Passer une commande",
-          service: service,
-          tunnel_is_available: tunnel_is_available,
-          tunnel: tunnel,
-          error: error,
-          rbody: body
-        })
-      }
-
     } else {
       error = "Le tunnel n'est pas disponible"
+    }
+
+    if (error) {
+      console.log('error', error);
+
+      res.render(
+        "order/first", {
+        appName: APP_NAME,
+        appVersion: APP_VERSION,
+        appDescription: APP_DESCRIPTION,
+        pageDescription: tunnel.product.name,
+        // pageDescription: "Passer une commande",
+        service: service,
+        tunnel_is_available: tunnel_is_available,
+        tunnel: tunnel,
+        error: error,
+        rbody: body
+      })
     }
 
   } else {

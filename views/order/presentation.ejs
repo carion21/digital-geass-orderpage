@@ -25,7 +25,16 @@
         </div>
     <% } %>
 
-    <div class="text-center border border-primary rounded">
+    
+
+    <div class="text-center bg-danger bg-opacity-10 border border-danger rounded-3 p-4 shadow-sm">
+        <hr class="border-danger opacity-100">
+        <span class="display-5 text-danger fw-bold" id="countdown"></span>
+        <hr class="border-danger opacity-100">
+        <span class="small text-muted fst-italic">L'offre se termine bientôt !</span>
+    </div>
+
+    <div class="text-center border border-primary shadow-sm rounded">
         <% if (tunnel.base_price) { %>
             <span class="text-muted fw-bold text-decoration-line-through">
                 <%= tunnel.base_price %>F
@@ -35,6 +44,12 @@
             <%= tunnel.price %>F
         </span>
     </div>
+
+
+
+    <a href="#order-form" class="btn btn-primary w-100 my-4">
+        ACHETER MAINTENANT
+    </a>
 
     <!-- Contenu du pack -->
     <% if (tunnel.what_you_get) { %>
@@ -59,6 +74,10 @@
         </div>
     <% } %>
 
+    <a href="#order-form" class="btn btn-primary w-100 my-4">
+        ACHETER MAINTENANT
+    </a>
+
     <!-- Pourquoi choisir le pack -->
     <% if (tunnel.main_advantages) { %>
         <%- tunnel.main_advantages %>
@@ -72,6 +91,10 @@
             </ul>
         </div>
     <% } %>
+
+    <a href="#order-form" class="btn btn-primary w-100 my-4">
+        ACHETER MAINTENANT
+    </a>
 
     <!-- Étapes simples -->
     <div class="my-5">
