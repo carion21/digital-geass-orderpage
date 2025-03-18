@@ -19,11 +19,22 @@
         </div>
     <% } else { %>
         <div class="text-center my-4 border rounded p-2">
-            <img src="https://via.placeholder.com/300"
+            <img src="https://place-hold.it/300"
                 alt="<%= tunnel.code %>"
                 class="img-fluid rounded">
         </div>
     <% } %>
+
+    <div class="text-center border border-primary rounded">
+        <% if (tunnel.base_price) { %>
+            <span class="text-muted fw-bold text-decoration-line-through">
+                <%= tunnel.base_price %>F
+            </span>
+        <% } %>
+        <span class="text-dark fw-bold fs-1">
+            <%= tunnel.price %>F
+        </span>
+    </div>
 
     <!-- Contenu du pack -->
     <% if (tunnel.what_you_get) { %>
@@ -68,8 +79,8 @@
         <ol class="list-group my-4">
             <li class="list-group-item">
                 Assurez-vous d'abord d'avoir la somme de
-                <strong><%= tunnel.price %> FCFA</strong> 
-                sur votre compte mobile (Wave, Orange Money, Moov Money, etc.).
+                <strong><%= tunnel.price %> F</strong> 
+                sur votre compte mobile money (Wave, Orange Money, Moov Money, etc.).
             </li>
             <li class="list-group-item">
                 Remplissez le formulaire ci-dessous.
@@ -82,11 +93,11 @@
             </li>
             <li class="list-group-item">
                 Pour tout souci, contactez ce numéro (aussi disponible sur WhatsApp) : 
-                <strong>+225 07 67 62 39 71</strong>.
+                <strong>+225 07 89 77 40 98</strong>.
                 <br>
-                <a href="https://wa.me/2250767623971?text=Bonjour%2C%20j%27ai%20un%20probl%C3%A8me%20avec%20Digital%20Geass%2C%20pouvez-vous%20m%27aider%20%3F" 
+                <a href="https://wa.me/2250789774098?text=Bonjour%2C%20j%27ai%20un%20probl%C3%A8me%20avec%20Digital%20Geass%2C%20pouvez-vous%20m%27aider%20%3F" 
                    class="btn btn-success btn-sm ms-2" 
-                   target="_blank" 
+                   target="_blank"
                    rel="noopener noreferrer">
                    WhatsApp uniquement en cas de souci
                 </a>

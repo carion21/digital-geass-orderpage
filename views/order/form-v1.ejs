@@ -42,18 +42,17 @@
         </div>
         <div class="mb-3">
             <label for="phone" class="form-label">
-                Votre numéro whatsapp
+                Votre numéro de téléphone
             </label>
             <span>
                 <small class="text-muted">
-                    (Exemple : +225 12 34 56 78 - Incluez l'indicatif de votre pays)
+                (WhatsApp)
                 </small>
             </span>
-            <div class="input-group">
-                <div class="input-group input-group-sm">
-                    <input id="phone" name="phone" type="tel" class="form-control">
-                </div>
-            </div>
+            <input type="text" id="phone" name="phone" class="form-control"
+                placeholder="Entrez votre numéro de téléphone"
+                value="<% if (locals.rbody) { %><%= rbody.phone %><% } %>"
+                required>
             <div class="invalid-feedback position-absolute start-0 top-100">
                 S'il vous plaît, entrez un numéro de téléphone valide!
             </div>
@@ -63,3 +62,6 @@
         </button>
     </form>
 </div>
+
+<!-- JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/18.2.1/js/intlTelInput.min.js"></script>

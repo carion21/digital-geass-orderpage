@@ -81,7 +81,7 @@ router.post('/:tunnel_code', async function (req, res, next) {
 
     let error = ""
 
-    if (tunnel_is_available) {
+    if (!tunnel_is_available) {
       let body = req.body
 
       let bcontrol = control_service_data(SERVICE_TYPE, body)
@@ -95,7 +95,7 @@ router.post('/:tunnel_code', async function (req, res, next) {
           lastname: body.lastname,
           firstname: body.firstname,
           email: body.email,
-          phone: body.phone,
+          phone: body.phone.replace(/ /g, ''),
           status: ORDER_STATUS_STARTED,
         }
 
