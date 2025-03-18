@@ -15,4 +15,18 @@ $(document).ready(function () {
                 .catch(() => callback("us")); // Fallback sur les États-Unis en cas d'erreur
         }
     });
+
+    // au submit du formulaire
+    $("#submit").on("click", function (e) {
+        const phoneNumber = telInput.val();
+        console.log('phoneNumber', phoneNumber);
+
+        const dialCodeElt = $(".selected-dial-code");
+        const dialCode = dialCodeElt.text();
+        console.log('dialCode', dialCode);
+
+        $('#dialcode').val(dialCode);
+    });
+
+
 });

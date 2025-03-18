@@ -120,9 +120,9 @@ class Consts {
     static SERVICE_TYPES_FIELDS = {
         "undefined": {},
         "order_first_step": {
-            "fields": ["lastname", "firstname", "email", "phone"],
-            "types": ["string", "string", "string_email", "string"],
-            "required": ["lastname", "firstname", "email", "phone"]
+            "fields": ["lastname", "firstname", "email", "dialcode", "phone"],
+            "types": ["string", "string", "string_email", "string", "string"],
+            "required": ["lastname", "firstname", "email", "dialcode", "phone"]
         },
     };
 

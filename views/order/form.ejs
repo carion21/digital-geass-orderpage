@@ -52,6 +52,10 @@
             </span>
             <div class="input-group">
                 <div class="input-group input-group-sm">
+                    <input type="hidden"
+                        name="dialcode"
+                        id="dialcode"
+                        value="+225">
                     <input id="phone" name="phone" type="tel" class="form-control">
                 </div>
             </div>
@@ -59,7 +63,8 @@
                 S'il vous plaît, entrez un numéro de téléphone valide!
             </div>
         </div>
-        <button type="submit" class="btn btn-success w-100">
+        <button type="submit" id="submit"
+            class="btn btn-success w-100">
             VALIDER LA COMMANDE
         </button>
     </form>

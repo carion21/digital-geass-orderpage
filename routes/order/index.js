@@ -87,6 +87,11 @@ router.post('/:tunnel_code', async function (req, res, next) {
       let bcontrol = control_service_data(SERVICE_TYPE, body)
 
       if (bcontrol.success) {
+        let phone = body.phone.replace(/ /g, '')
+        let dialcode = body.dialcode
+        phone = phone.replace(dialcode, "")
+        phone = dialcode + phone
+
         let order_code = genOrderCode()
         let order_data = {
           tunnel: tunnel.id,
@@ -95,7 +100,7 @@ router.post('/:tunnel_code', async function (req, res, next) {
           lastname: body.lastname,
           firstname: body.firstname,
           email: body.email,
-          phone: body.phone.replace(/ /g, ''),
+          phone: phone,
           status: ORDER_STATUS_STARTED,
         }
 
@@ -150,25 +155,29 @@ router.post('/:tunnel_code', async function (req, res, next) {
         error = bcontrol.message
       }
 
+      if (error) {
+        console.log('error', error);
+
+        res.render(
+          "order/first", {
+          appName: APP_NAME,
+          appVersion: APP_VERSION,
+          appDescription: APP_DESCRIPTION,
+          pageDescription: tunnel.product.name,
+          // pageDescription: "Passer une commande",
+          service: service,
+          tunnel_is_available: tunnel_is_available,
+          tunnel: tunnel,
+          error: error,
+          rbody: body
+        })
+      }
+
     } else {
-      error = "Le tunnel n'est pas disponible"
-    }
-
-    if (error) {
-      console.log('error', error);
-
-      res.render(
-        "order/first", {
+      res.render('security/notfound', {
         appName: APP_NAME,
         appVersion: APP_VERSION,
-        appDescription: APP_DESCRIPTION,
-        pageDescription: tunnel.product.name,
-        // pageDescription: "Passer une commande",
-        service: service,
-        tunnel_is_available: tunnel_is_available,
-        tunnel: tunnel,
-        error: error,
-        rbody: body
+        appDescription: APP_DESCRIPTION
       })
     }
 
